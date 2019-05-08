@@ -1,0 +1,13 @@
+{
+    "type": "object",
+    "properties": {
+        "from": {
+            "required": true,
+            "type": "string"
+        },
+        "to": {
+            "required": true,
+            "type": "string"
+        }
+    }
+}

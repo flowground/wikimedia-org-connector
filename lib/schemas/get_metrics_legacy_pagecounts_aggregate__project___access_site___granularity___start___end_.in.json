@@ -1,0 +1,35 @@
+{
+    "type": "object",
+    "properties": {
+        "project": {
+            "required": true,
+            "type": "string"
+        },
+        "granularity": {
+            "required": true,
+            "type": "string",
+            "enum": [
+                "hourly",
+                "daily",
+                "monthly"
+            ]
+        },
+        "start": {
+            "required": true,
+            "type": "string"
+        },
+        "end": {
+            "required": true,
+            "type": "string"
+        },
+        "access_site": {
+            "required": true,
+            "type": "string",
+            "enum": [
+                "all-sites",
+                "desktop-site",
+                "mobile-site"
+            ]
+        }
+    }
+}

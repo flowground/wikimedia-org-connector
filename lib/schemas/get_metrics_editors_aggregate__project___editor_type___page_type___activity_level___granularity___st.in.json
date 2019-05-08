@@ -1,0 +1,56 @@
+{
+    "type": "object",
+    "properties": {
+        "project": {
+            "required": true,
+            "type": "string"
+        },
+        "granularity": {
+            "required": true,
+            "type": "string",
+            "enum": [
+                "daily",
+                "monthly"
+            ]
+        },
+        "start": {
+            "required": true,
+            "type": "string"
+        },
+        "end": {
+            "required": true,
+            "type": "string"
+        },
+        "editor_type": {
+            "required": true,
+            "type": "string",
+            "enum": [
+                "all-editor-types",
+                "anonymous",
+                "group-bot",
+                "name-bot",
+                "user"
+            ]
+        },
+        "page_type": {
+            "required": true,
+            "type": "string",
+            "enum": [
+                "all-page-types",
+                "content",
+                "non-content"
+            ]
+        },
+        "activity_level": {
+            "required": true,
+            "type": "string",
+            "enum": [
+                "all-activity-levels",
+                "1..4-edits",
+                "5..24-edits",
+                "25..99-edits",
+                "100..-edits"
+            ]
+        }
+    }
+}

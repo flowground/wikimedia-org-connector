@@ -1,0 +1,41 @@
+{
+    "type": "object",
+    "properties": {
+        "project": {
+            "required": true,
+            "type": "string"
+        },
+        "year": {
+            "required": true,
+            "type": "string"
+        },
+        "month": {
+            "required": true,
+            "type": "string"
+        },
+        "day": {
+            "required": true,
+            "type": "string"
+        },
+        "editor_type": {
+            "required": true,
+            "type": "string",
+            "enum": [
+                "all-editor-types",
+                "anonymous",
+                "group-bot",
+                "name-bot",
+                "user"
+            ]
+        },
+        "page_type": {
+            "required": true,
+            "type": "string",
+            "enum": [
+                "all-page-types",
+                "content",
+                "non-content"
+            ]
+        }
+    }
+}

@@ -1,0 +1,25 @@
+{
+    "type": "object",
+    "properties": {
+        "from_lang": {
+            "required": true,
+            "type": "string"
+        },
+        "to_lang": {
+            "required": true,
+            "type": "string"
+        },
+        "requestBody": {
+            "type": "object",
+            "properties": {
+                "html": {
+                    "description": "The HTML content to translate",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "html"
+            ]
+        }
+    }
+}

@@ -1,0 +1,45 @@
+{
+    "type": "object",
+    "properties": {
+        "project": {
+            "required": true,
+            "type": "string"
+        },
+        "access": {
+            "required": true,
+            "type": "string",
+            "enum": [
+                "all-access",
+                "desktop",
+                "mobile-app",
+                "mobile-web"
+            ]
+        },
+        "agent": {
+            "required": true,
+            "type": "string",
+            "enum": [
+                "all-agents",
+                "user",
+                "spider"
+            ]
+        },
+        "granularity": {
+            "required": true,
+            "type": "string",
+            "enum": [
+                "hourly",
+                "daily",
+                "monthly"
+            ]
+        },
+        "start": {
+            "required": true,
+            "type": "string"
+        },
+        "end": {
+            "required": true,
+            "type": "string"
+        }
+    }
+}

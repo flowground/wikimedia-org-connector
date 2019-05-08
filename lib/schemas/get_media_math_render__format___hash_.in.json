@@ -1,0 +1,19 @@
+{
+    "type": "object",
+    "properties": {
+        "format": {
+            "required": true,
+            "type": "string",
+            "enum": [
+                "svg",
+                "mml",
+                "png"
+            ]
+        },
+        "hash": {
+            "required": true,
+            "type": "string",
+            "minLength": 1
+        }
+    }
+}

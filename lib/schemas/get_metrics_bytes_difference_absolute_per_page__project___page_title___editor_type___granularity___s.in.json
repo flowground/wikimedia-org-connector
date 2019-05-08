@@ -1,0 +1,40 @@
+{
+    "type": "object",
+    "properties": {
+        "project": {
+            "required": true,
+            "type": "string"
+        },
+        "granularity": {
+            "required": true,
+            "type": "string",
+            "enum": [
+                "daily",
+                "monthly"
+            ]
+        },
+        "start": {
+            "required": true,
+            "type": "string"
+        },
+        "end": {
+            "required": true,
+            "type": "string"
+        },
+        "page_title": {
+            "required": true,
+            "type": "string"
+        },
+        "editor_type": {
+            "required": true,
+            "type": "string",
+            "enum": [
+                "all-editor-types",
+                "anonymous",
+                "group-bot",
+                "name-bot",
+                "user"
+            ]
+        }
+    }
+}

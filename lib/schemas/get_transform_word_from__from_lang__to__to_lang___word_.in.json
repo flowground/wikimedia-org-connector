@@ -1,0 +1,17 @@
+{
+    "type": "object",
+    "properties": {
+        "from_lang": {
+            "required": true,
+            "type": "string"
+        },
+        "to_lang": {
+            "required": true,
+            "type": "string"
+        },
+        "word": {
+            "required": true,
+            "type": "string"
+        }
+    }
+}

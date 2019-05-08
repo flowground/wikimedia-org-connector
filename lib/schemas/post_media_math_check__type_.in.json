@@ -1,0 +1,26 @@
+{
+    "type": "object",
+    "properties": {
+        "type": {
+            "required": true,
+            "type": "string",
+            "enum": [
+                "tex",
+                "inline-tex",
+                "chem"
+            ]
+        },
+        "requestBody": {
+            "type": "object",
+            "properties": {
+                "q": {
+                    "description": "The formula to check",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "q"
+            ]
+        }
+    }
+}

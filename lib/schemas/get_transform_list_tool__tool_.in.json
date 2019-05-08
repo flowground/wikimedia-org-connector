@@ -1,0 +1,13 @@
+{
+    "type": "object",
+    "properties": {
+        "tool": {
+            "required": true,
+            "type": "string",
+            "enum": [
+                "mt",
+                "dictionary"
+            ]
+        }
+    }
+}

@@ -1,0 +1,31 @@
+{
+    "type": "object",
+    "properties": {
+        "project": {
+            "required": true,
+            "type": "string"
+        },
+        "access": {
+            "required": true,
+            "type": "string",
+            "enum": [
+                "all-access",
+                "desktop",
+                "mobile-app",
+                "mobile-web"
+            ]
+        },
+        "year": {
+            "required": true,
+            "type": "string"
+        },
+        "month": {
+            "required": true,
+            "type": "string"
+        },
+        "day": {
+            "required": true,
+            "type": "string"
+        }
+    }
+}

@@ -1,0 +1,634 @@
+{
+    "title": "Wikimedia",
+    "description": "This API provides cacheable and straightforward access to Wikimedia content and data, in machine-readable formats.\n### Global Rules\n- Limit your clients to no more than 200 requests/s to this API.\n  Each API endpoint's documentation may detail more specific usage limits.\n- Set a unique `User-Agent` or `Api-User-Agent` header that\n  allows us to contact you quickly. Email addresses or URLs\n  of contact pages work well.\n\nBy using this API, you agree to Wikimedia's  [Terms of Use](https://wikimediafoundation.org/wiki/Terms_of_Use) and [Privacy Policy](https://wikimediafoundation.org/wiki/Privacy_policy). Unless otherwise specified in the endpoint documentation below, content accessed via this API is licensed under the [CC-BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/)  and [GFDL](https://www.gnu.org/copyleft/fdl.html) licenses, and you irrevocably agree to release modifications or additions made through this API under these licenses.  See https://www.mediawiki.org/wiki/REST_API for background and details.\n### Endpoint documentation\nPlease consult each endpoint's documentation for details on:\n- Licensing information for the specific type of content\n  and data served via the endpoint.\n- Stability markers to inform you about development status and\n  change policy, according to\n  [our API version policy](https://www.mediawiki.org/wiki/API_versioning).\n- Endpoint specific usage limits.\n",
+    "docsUrl": "",
+    "url": "https://api.apis.guru/v2/specs/wikimedia.org/1.0.0/swagger.json",
+    "envVars": {},
+    "credentials": {
+        "fields": {
+            "server": {
+                "label": "Server",
+                "viewClass": "SelectView",
+                "model": [
+                    "https://wikimedia.org/api/rest_v1",
+                    "--- Custom URL"
+                ],
+                "required": true
+            },
+            "otherServer": {
+                "label": "Custom Server URL",
+                "viewClass": "TextFieldView"
+            },
+            "mediawiki_auth": {
+                "label": "cookie (mediawiki_auth)",
+                "viewClass": "TextFieldView",
+                "note": "Checks permissions using MW api"
+            }
+        }
+    },
+    "triggers": {
+        "startFlow": {
+            "main": "./lib/triggers/startFlow.js",
+            "type": "polling",
+            "title": "Start Flow",
+            "fields": {}
+        }
+    },
+    "actions": {
+        "get_feed_availability": {
+            "main": "./lib/actions/get_feed_availability.js",
+            "title": "Gets availability of featured feed content for the apps by wiki domain.",
+            "description": "Gets availability of featured feed content for the apps by wiki domain.\n\nStability: [experimental](https://www.mediawiki.org/wiki/API_versioning#Experimental)\n",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/get_feed_availability.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "post_media_math_check__type_": {
+            "main": "./lib/actions/post_media_math_check__type_.js",
+            "title": "Check and normalize a TeX formula.",
+            "description": "Checks the supplied TeX formula for correctness and returns the\nnormalised formula representation as well as information about\nidentifiers. Available types are tex and inline-tex. The response\ncontains the `x-resource-location` header which can be used to retrieve\nthe render of the checked formula in one of the supported rendering\nformats. Just append the value of the header to `/media/math/{format}/`\nand perform a GET request against that URL.\n\nStability: [stable](https://www.mediawiki.org/wiki/API_versioning#Stable).\n",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/post_media_math_check__type_.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "get_media_math_formula__hash_": {
+            "main": "./lib/actions/get_media_math_formula__hash_.js",
+            "title": "Get a previously-stored formula",
+            "description": "Returns the previously-stored formula via `/media/math/check/{type}` for\nthe given hash.\n\nStability: [stable](https://www.mediawiki.org/wiki/API_versioning#Stable).\n",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/get_media_math_formula__hash_.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "get_media_math_render__format___hash_": {
+            "main": "./lib/actions/get_media_math_render__format___hash_.js",
+            "title": "Get rendered formula in the given format.",
+            "description": "Given a request hash, renders a TeX formula into its mathematic\nrepresentation in the given format. When a request is issued to the\n`/media/math/check/{format}` POST endpoint, the response contains the\n`x-resource-location` header denoting the hash ID of the POST data. Once\nobtained, this endpoint has to be used to obtain the actual render.\n\nStability: [stable](https://www.mediawiki.org/wiki/API_versioning#Stable).\n",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/get_media_math_render__format___hash_.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "get_metrics_bytes_difference_absolute_aggregate__project___editor_type___page_type___granularity___start___end_": {
+            "main": "./lib/actions/get_metrics_bytes_difference_absolute_aggregate__project___editor_type___page_type___granularity___s.js",
+            "title": "Get the sum of absolute value of text bytes difference between current edit and\nprevious one.\n",
+            "description": "Given a Mediawiki project and a date range, returns a timeseries of absolute bytes\ndifference sums. You can filter by editors-type (all-editor-types, anonymous, group-bot,\nname-bot, user) and page-type (all-page-types, content, non-content). You can choose\nbetween daily and monthly granularity as well.\n\n- Stability: [experimental](https://www.mediawiki.org/wiki/API_versioning#Experimental)\n- Rate limit: 25 req/s\n- License: Data accessible via this endpoint is available under the\n  [CC0 1.0 license](https://creativecommons.org/publicdomain/zero/1.0/).\n",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/get_metrics_bytes_difference_absolute_aggregate__project___editor_type___page_type___granularity___s.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "get_metrics_bytes_difference_absolute_per_page__project___page_title___editor_type___granularity___start___end_": {
+            "main": "./lib/actions/get_metrics_bytes_difference_absolute_per_page__project___page_title___editor_type___granularity___s.js",
+            "title": "Get the sum of absolute text bytes difference per page.",
+            "description": "Given a Mediawiki project, a page-title prefixed with canonical namespace (for\ninstance 'User:Jimbo_Wales') and a date range, returns a timeseries of bytes\ndifference absolute sums. You can filter by editors-type (all-editor-types, anonymous,\ngroup-bot, name-bot, user). You can choose between daily and monthly granularity as well.\n\n- Stability: [experimental](https://www.mediawiki.org/wiki/API_versioning#Experimental)\n- Rate limit: 25 req/s\n- License: Data accessible via this endpoint is available under the\n  [CC0 1.0 license](https://creativecommons.org/publicdomain/zero/1.0/).\n",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/get_metrics_bytes_difference_absolute_per_page__project___page_title___editor_type___granularity___s.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "get_metrics_bytes_difference_net_aggregate__project___editor_type___page_type___granularity___start___end_": {
+            "main": "./lib/actions/get_metrics_bytes_difference_net_aggregate__project___editor_type___page_type___granularity___start_.js",
+            "title": "Get the sum of net text bytes difference between current edit and previous one.",
+            "description": "Given a Mediawiki project and a date range, returns a timeseries of bytes difference net\nsums. You can filter by editors-type (all-editor-types, anonymous, group-bot, name-bot,\nuser) and page-type (all-page-types, content or non-content). You can choose between\ndaily and monthly granularity as well.\n\n- Stability: [experimental](https://www.mediawiki.org/wiki/API_versioning#Experimental)\n- Rate limit: 25 req/s\n- License: Data accessible via this endpoint is available under the\n  [CC0 1.0 license](https://creativecommons.org/publicdomain/zero/1.0/).\n",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/get_metrics_bytes_difference_net_aggregate__project___editor_type___page_type___granularity___start_.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "get_metrics_bytes_difference_net_per_page__project___page_title___editor_type___granularity___start___end_": {
+            "main": "./lib/actions/get_metrics_bytes_difference_net_per_page__project___page_title___editor_type___granularity___start_.js",
+            "title": "Get the sum of net text bytes difference per page.",
+            "description": "Given a Mediawiki project, a page-title prefixed with canonical namespace (for\ninstance 'User:Jimbo_Wales') and a date range, returns a timeseries of bytes\ndifference net sums. You can filter by editors-type (all-editor-types, anonymous,\ngroup-bot, name-bot, user). You can choose between daily and monthly granularity as well.\n\n- Stability: [experimental](https://www.mediawiki.org/wiki/API_versioning#Experimental)\n- Rate limit: 25 req/s\n- License: Data accessible via this endpoint is available under the\n  [CC0 1.0 license](https://creativecommons.org/publicdomain/zero/1.0/).\n",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/get_metrics_bytes_difference_net_per_page__project___page_title___editor_type___granularity___start_.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "get_metrics_edited_pages_aggregate__project___editor_type___page_type___activity_level___granularity___start___end_": {
+            "main": "./lib/actions/get_metrics_edited_pages_aggregate__project___editor_type___page_type___activity_level___granularity.js",
+            "title": "Get edited-pages counts for a project.",
+            "description": "Given a Mediawiki project and a date range, returns a timeseries of its edited-pages counts.\nYou can filter by editor-type (all-editor-types, anonymous, group-bot, name-bot, user),\npage-type (all-page-types, content or non-content) or activity-level (1..4-edits,\n5..24-edits, 25..99-edits, 100..-edits). You can choose between daily and monthly\ngranularity as well.\n\n- Stability: [experimental](https://www.mediawiki.org/wiki/API_versioning#Experimental)\n- Rate limit: 25 req/s\n- License: Data accessible via this endpoint is available under the\n  [CC0 1.0 license](https://creativecommons.org/publicdomain/zero/1.0/).\n",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/get_metrics_edited_pages_aggregate__project___editor_type___page_type___activity_level___granularity.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "get_metrics_edited_pages_new__project___editor_type___page_type___granularity___start___end_": {
+            "main": "./lib/actions/get_metrics_edited_pages_new__project___editor_type___page_type___granularity___start___end_.js",
+            "title": "Get new pages counts for a project.",
+            "description": "Given a Mediawiki project and a date range, returns a timeseries of its new pages counts.\nYou can filter by editor type (all-editor-types, anonymous, group-bot, name-bot, user)\nor page-type (all-page-types, content or non-content). You can choose between daily and\nmonthly granularity as well.\n\n- Stability: [experimental](https://www.mediawiki.org/wiki/API_versioning#Experimental)\n- Rate limit: 25 req/s\n- License: Data accessible via this endpoint is available under the\n  [CC0 1.0 license](https://creativecommons.org/publicdomain/zero/1.0/).\n",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/get_metrics_edited_pages_new__project___editor_type___page_type___granularity___start___end_.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "get_metrics_edited_pages_top_by_absolute_bytes_difference__project___editor_type___page_type___year___month___day_": {
+            "main": "./lib/actions/get_metrics_edited_pages_top_by_absolute_bytes_difference__project___editor_type___page_type___year_.js",
+            "title": "Get top 100 edited-pages by absolute bytes-difference.",
+            "description": "Given a Mediawiki project and a date (day or month), returns a timeseries of the top 100\nedited-pages by absolute bytes-difference. You can filter by editor-type (all-editor-types,\nanonymous, group-bot, name-bot, user) or page-type (all-page-types, content or non-content).\n\n- Stability: [experimental](https://www.mediawiki.org/wiki/API_versioning#Experimental)\n- Rate limit: 25 req/s\n- License: Data accessible via this endpoint is available under the\n  [CC0 1.0 license](https://creativecommons.org/publicdomain/zero/1.0/).\n",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/get_metrics_edited_pages_top_by_absolute_bytes_difference__project___editor_type___page_type___year_.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "get_metrics_edited_pages_top_by_edits__project___editor_type___page_type___year___month___day_": {
+            "main": "./lib/actions/get_metrics_edited_pages_top_by_edits__project___editor_type___page_type___year___month___day_.js",
+            "title": "Get top 100 edited-pages by edits count.",
+            "description": "Given a Mediawiki project and a date (day or month), returns a timeseries of the top\n100 edited-pages by edits count. You can filter by editor-type (all-editor-types,\nanonymous, group-bot, name-bot, user) or page-type (all-page-types, content or\nnon-content).\n\n- Stability: [experimental](https://www.mediawiki.org/wiki/API_versioning#Experimental)\n- Rate limit: 25 req/s\n- License: Data accessible via this endpoint is available under the\n  [CC0 1.0 license](https://creativecommons.org/publicdomain/zero/1.0/).\n",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/get_metrics_edited_pages_top_by_edits__project___editor_type___page_type___year___month___day_.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "get_metrics_edited_pages_top_by_net_bytes_difference__project___editor_type___page_type___year___month___day_": {
+            "main": "./lib/actions/get_metrics_edited_pages_top_by_net_bytes_difference__project___editor_type___page_type___year___mon.js",
+            "title": "Get top 100 edited-pages by net bytes-difference.",
+            "description": "Given a Mediawiki project and a date (day or month), returns a timeseries of the top 100\nedited-pages by net bytes-difference. You can filter by editor-type (all-editor-types,\nanonymous, group-bot, name-bot, user) or page-type (all-page-types, content or non-content).\n\n- Stability: [experimental](https://www.mediawiki.org/wiki/API_versioning#Experimental)\n- Rate limit: 25 req/s\n- License: Data accessible via this endpoint is available under the\n  [CC0 1.0 license](https://creativecommons.org/publicdomain/zero/1.0/).\n",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/get_metrics_edited_pages_top_by_net_bytes_difference__project___editor_type___page_type___year___mon.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "get_metrics_editors_aggregate__project___editor_type___page_type___activity_level___granularity___start___end_": {
+            "main": "./lib/actions/get_metrics_editors_aggregate__project___editor_type___page_type___activity_level___granularity___st.js",
+            "title": "Get editors counts for a project.",
+            "description": "Given a Mediawiki project and a date range, returns a timeseries of its editors counts.\nYou can filter by editory-type (all-editor-types, anonymous, group-bot, name-bot, user),\npage-type (all-page-types, content or non-content) or activity-level (1..4-edits,\n5..24-edits, 25..99-edits or 100..-edits). You can choose between daily and monthly\ngranularity as well.\n\n- Stability: [experimental](https://www.mediawiki.org/wiki/API_versioning#Experimental)\n- Rate limit: 25 req/s\n- License: Data accessible via this endpoint is available under the\n  [CC0 1.0 license](https://creativecommons.org/publicdomain/zero/1.0/).\n",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/get_metrics_editors_aggregate__project___editor_type___page_type___activity_level___granularity___st.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "get_metrics_editors_top_by_absolute_bytes_difference__project___editor_type___page_type___year___month___day_": {
+            "main": "./lib/actions/get_metrics_editors_top_by_absolute_bytes_difference__project___editor_type___page_type___year___mon.js",
+            "title": "Get top 100 editors by absolute bytes-difference.",
+            "description": "Given a Mediawiki project and a date (day or month), returns a timeseries of the top 100\neditors by absolute bytes-difference. You can filter by editor-type (all-editor-types,\nanonymous, group-bot, name-bot, user) or page-type (all-page-types, content or non-content).\nThe user_text returned is either the mediawiki user_text if the user is registered, or\nnull if user is anonymous.\n\n- Stability: [experimental](https://www.mediawiki.org/wiki/API_versioning#Experimental)\n- Rate limit: 25 req/s\n- License: Data accessible via this endpoint is available under the\n  [CC0 1.0 license](https://creativecommons.org/publicdomain/zero/1.0/).\n",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/get_metrics_editors_top_by_absolute_bytes_difference__project___editor_type___page_type___year___mon.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "get_metrics_editors_top_by_edits__project___editor_type___page_type___year___month___day_": {
+            "main": "./lib/actions/get_metrics_editors_top_by_edits__project___editor_type___page_type___year___month___day_.js",
+            "title": "Get top 100 editors by edits count.",
+            "description": "Given a Mediawiki project and a date (day or month), returns a timeseries of the top\n100 editors by edits count. You can filter by editor-type (all-editor-types,\nanonymous, group-bot, name-bot, user) or page-type (all-page-types, content or\nnon-content). The user_text returned is either the mediawiki user_text if the user is\nregistered, or null if user is anonymous.\n\n- Stability: [experimental](https://www.mediawiki.org/wiki/API_versioning#Experimental)\n- Rate limit: 25 req/s\n- License: Data accessible via this endpoint is available under the\n  [CC0 1.0 license](https://creativecommons.org/publicdomain/zero/1.0/).\n",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/get_metrics_editors_top_by_edits__project___editor_type___page_type___year___month___day_.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "get_metrics_editors_top_by_net_bytes_difference__project___editor_type___page_type___year___month___day_": {
+            "main": "./lib/actions/get_metrics_editors_top_by_net_bytes_difference__project___editor_type___page_type___year___month___.js",
+            "title": "Get top 100 editors by net bytes-difference.",
+            "description": "Given a Mediawiki project and a date (day or month), returns a timeseries of the top 100\neditors by net bytes-difference. You can filter by editor-type (all-editor-types, anonymous,\ngroup-bot, name-bot, user) or page-type (all-page-types, content or non-content). The\nuser_text returned is either the mediawiki user_text if the user is registered, or\n\"Anonymous Editor\" if user is anonymous.\n\n- Stability: [experimental](https://www.mediawiki.org/wiki/API_versioning#Experimental)\n- Rate limit: 25 req/s\n- License: Data accessible via this endpoint is available under the\n  [CC0 1.0 license](https://creativecommons.org/publicdomain/zero/1.0/).\n",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/get_metrics_editors_top_by_net_bytes_difference__project___editor_type___page_type___year___month___.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "get_metrics_edits_aggregate__project___editor_type___page_type___granularity___start___end_": {
+            "main": "./lib/actions/get_metrics_edits_aggregate__project___editor_type___page_type___granularity___start___end_.js",
+            "title": "Get edits counts for a project.",
+            "description": "Given a Mediawiki project and a date range, returns a timeseries of edits counts.\nYou can filter by editors-type (all-editor-types, anonymous, bot, registered) and\npage-type (all-page-types, content or non-content). You can choose between daily and\nmonthly granularity as well.\n\n- Stability: [experimental](https://www.mediawiki.org/wiki/API_versioning#Experimental)\n- Rate limit: 25 req/s\n- License: Data accessible via this endpoint is available under the\n  [CC0 1.0 license](https://creativecommons.org/publicdomain/zero/1.0/).\n",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/get_metrics_edits_aggregate__project___editor_type___page_type___granularity___start___end_.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "get_metrics_edits_per_page__project___page_title___editor_type___granularity___start___end_": {
+            "main": "./lib/actions/get_metrics_edits_per_page__project___page_title___editor_type___granularity___start___end_.js",
+            "title": "Get edit counts for a page in a project.",
+            "description": "Given a Mediawiki project, a page-title prefixed with its canonical namespace (for\ninstance 'User:Jimbo_Wales') and a date range, returns a timeseries of edit counts.\nYou can filter by editors-type (all-editor-types, anonymous, group-bot, name-bot, user).\nYou can choose between daily and monthly granularity as well.\n\n- Stability: [experimental](https://www.mediawiki.org/wiki/API_versioning#Experimental)\n- Rate limit: 25 req/s\n- License: Data accessible via this endpoint is available under the\n  [CC0 1.0 license](https://creativecommons.org/publicdomain/zero/1.0/).\n",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/get_metrics_edits_per_page__project___page_title___editor_type___granularity___start___end_.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "get_metrics_legacy_pagecounts_aggregate__project___access_site___granularity___start___end_": {
+            "main": "./lib/actions/get_metrics_legacy_pagecounts_aggregate__project___access_site___granularity___start___end_.js",
+            "title": "Given a project and a date range, returns a timeseries of pagecounts.\nYou can filter by access site (mobile or desktop) and you can choose between monthly,\ndaily and hourly granularity as well.\n\n- Stability: [experimental](https://www.mediawiki.org/wiki/API_versioning#Experimental)\n- Rate limit: 100 req/s\n- License: Data accessible via this endpoint is available under the\n  [CC0 1.0 license](https://creativecommons.org/publicdomain/zero/1.0/).\n",
+            "description": "Given a project and a date range, returns a timeseries of pagecounts.\nYou can filter by access site (mobile or desktop) and you can choose between monthly,\ndaily and hourly granularity as well.\n\n- Stability: [experimental](https://www.mediawiki.org/wiki/API_versioning#Experimental)\n- Rate limit: 100 req/s\n- License: Data accessible via this endpoint is available under the\n  [CC0 1.0 license](https://creativecommons.org/publicdomain/zero/1.0/).\n",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/get_metrics_legacy_pagecounts_aggregate__project___access_site___granularity___start___end_.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "get_metrics_pageviews_aggregate__project___access___agent___granularity___start___end_": {
+            "main": "./lib/actions/get_metrics_pageviews_aggregate__project___access___agent___granularity___start___end_.js",
+            "title": "Get pageview counts for a project.",
+            "description": "Given a date range, returns a timeseries of pageview counts. You can filter by project,\naccess method and/or agent type. You can choose between daily and hourly granularity\nas well.\n\n- Stability: [stable](https://www.mediawiki.org/wiki/API_versioning#Stable)\n- Rate limit: 100 req/s\n- License: Data accessible via this endpoint is available under the\n  [CC0 1.0 license](https://creativecommons.org/publicdomain/zero/1.0/).\n",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/get_metrics_pageviews_aggregate__project___access___agent___granularity___start___end_.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "get_metrics_pageviews_per_article__project___access___agent___article___granularity___start___end_": {
+            "main": "./lib/actions/get_metrics_pageviews_per_article__project___access___agent___article___granularity___start___end_.js",
+            "title": "Get pageview counts for a page.",
+            "description": "Given a Mediawiki article and a date range, returns a daily timeseries of its pageview\ncounts. You can also filter by access method and/or agent type.\n\n- Stability: [stable](https://www.mediawiki.org/wiki/API_versioning#Stable)\n- Rate limit: 100 req/s\n- License: Data accessible via this endpoint is available under the\n  [CC0 1.0 license](https://creativecommons.org/publicdomain/zero/1.0/).\n",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/get_metrics_pageviews_per_article__project___access___agent___article___granularity___start___end_.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "get_metrics_pageviews_top_by_country__project___access___year___month_": {
+            "main": "./lib/actions/get_metrics_pageviews_top_by_country__project___access___year___month_.js",
+            "title": "Get pageviews by country and access method.",
+            "description": "Lists the pageviews to this project, split by country of origin for a given month.\nBecause of privacy reasons, pageviews are given in a bucketed format, and countries\nwith less than 100 views do not get reported.\nStability: [experimental](https://www.mediawiki.org/wiki/API_versioning#Experimental)\n- Rate limit: 100 req/s\n- License: Data accessible via this endpoint is available under the\n  [CC0 1.0 license](https://creativecommons.org/publicdomain/zero/1.0/).\n",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/get_metrics_pageviews_top_by_country__project___access___year___month_.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "get_metrics_pageviews_top__project___access___year___month___day_": {
+            "main": "./lib/actions/get_metrics_pageviews_top__project___access___year___month___day_.js",
+            "title": "Get the most viewed articles for a project.",
+            "description": "Lists the 1000 most viewed articles for a given project and timespan (month or day).\nYou can filter by access method.\n\n- Stability: [stable](https://www.mediawiki.org/wiki/API_versioning#Stable)\n- Rate limit: 100 req/s\n- License: Data accessible via this endpoint is available under the\n  [CC0 1.0 license](https://creativecommons.org/publicdomain/zero/1.0/).\n",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/get_metrics_pageviews_top__project___access___year___month___day_.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "get_metrics_registered_users_new__project___granularity___start___end_": {
+            "main": "./lib/actions/get_metrics_registered_users_new__project___granularity___start___end_.js",
+            "title": "Get newly registered users counts for a project.",
+            "description": "Given a Mediawiki project and a date range, returns a timeseries of its newly registered\nusers counts. You can choose between daily and monthly granularity. The newly registered\nusers value is computed with self-created users only, not auto-login created ones.\n\n- Stability: [experimental](https://www.mediawiki.org/wiki/API_versioning#Experimental)\n- Rate limit: 25 req/s\n- License: Data accessible via this endpoint is available under the\n  [CC0 1.0 license](https://creativecommons.org/publicdomain/zero/1.0/).\n",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/get_metrics_registered_users_new__project___granularity___start___end_.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "get_metrics_unique_devices__project___access_site___granularity___start___end_": {
+            "main": "./lib/actions/get_metrics_unique_devices__project___access_site___granularity___start___end_.js",
+            "title": "Get unique devices count per project",
+            "description": "Given a project and a date range, returns a timeseries of unique devices counts.\nYou need to specify a project, and can filter by accessed site (mobile or desktop).\nYou can choose between daily and hourly granularity as well.\n\n- Stability: [stable](https://www.mediawiki.org/wiki/API_versioning#Stable)\n- Rate limit: 100 req/s\n- License: Data accessible via this endpoint is available under the\n  [CC0 1.0 license](https://creativecommons.org/publicdomain/zero/1.0/).\n",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/get_metrics_unique_devices__project___access_site___granularity___start___end_.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "post_transform_html_from__from_lang__to__to_lang_": {
+            "main": "./lib/actions/post_transform_html_from__from_lang__to__to_lang_.js",
+            "title": "Machine-translate content",
+            "description": "Fetches the machine translation for the posted content from the source\nto the destination language.\n\nStability: [unstable](https://www.mediawiki.org/wiki/API_versioning#Unstable)\n",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/post_transform_html_from__from_lang__to__to_lang_.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "post_transform_html_from__from_lang__to__to_lang___provider_": {
+            "main": "./lib/actions/post_transform_html_from__from_lang__to__to_lang___provider_.js",
+            "title": "Machine-translate content",
+            "description": "Fetches the machine translation for the posted content from the source\nto the destination language.\n\nStability: [unstable](https://www.mediawiki.org/wiki/API_versioning#Unstable)\n",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/post_transform_html_from__from_lang__to__to_lang___provider_.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "get_transform_list_languagepairs_": {
+            "main": "./lib/actions/get_transform_list_languagepairs_.js",
+            "title": "Lists the language pairs supported by the back-end",
+            "description": "Fetches the list of language pairs the back-end service can translate\n\nStability: [unstable](https://www.mediawiki.org/wiki/API_versioning#Unstable)\n",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/get_transform_list_languagepairs_.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "get_transform_list_pair__from___to__": {
+            "main": "./lib/actions/get_transform_list_pair__from___to__.js",
+            "title": "Lists the tools available for a language pair",
+            "description": "Fetches the list of tools that are available for the given pair of languages.\n\nStability: [unstable](https://www.mediawiki.org/wiki/API_versioning#Unstable)\n",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/get_transform_list_pair__from___to__.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "get_transform_list_tool__tool_": {
+            "main": "./lib/actions/get_transform_list_tool__tool_.js",
+            "title": "Lists the tools and language pairs available for the given tool category",
+            "description": "Fetches the list of tools and all of the language pairs it can translate\n\nStability: [unstable](https://www.mediawiki.org/wiki/API_versioning#Unstable)\n",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/get_transform_list_tool__tool_.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "get_transform_list_tool__tool___from_": {
+            "main": "./lib/actions/get_transform_list_tool__tool___from_.js",
+            "title": "Lists the tools and language pairs available for the given tool category",
+            "description": "Fetches the list of tools and all of the language pairs it can translate\n\nStability: [unstable](https://www.mediawiki.org/wiki/API_versioning#Unstable)\n",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/get_transform_list_tool__tool___from_.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "get_transform_list_tool__tool___from___to_": {
+            "main": "./lib/actions/get_transform_list_tool__tool___from___to_.js",
+            "title": "Lists the tools and language pairs available for the given tool category",
+            "description": "Fetches the list of tools and all of the language pairs it can translate\n\nStability: [unstable](https://www.mediawiki.org/wiki/API_versioning#Unstable)\n",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/get_transform_list_tool__tool___from___to_.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "get_transform_word_from__from_lang__to__to_lang___word_": {
+            "main": "./lib/actions/get_transform_word_from__from_lang__to__to_lang___word_.js",
+            "title": "Fetch the dictionary meaning of a word",
+            "description": "Fetches the dictionary meaning of a word from a language and displays\nit in the target language.\n\nStability: [unstable](https://www.mediawiki.org/wiki/API_versioning#Unstable)\n",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/get_transform_word_from__from_lang__to__to_lang___word_.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "get_transform_word_from__from_lang__to__to_lang___word___provider_": {
+            "main": "./lib/actions/get_transform_word_from__from_lang__to__to_lang___word___provider_.js",
+            "title": "Fetch the dictionary meaning of a word",
+            "description": "Fetches the dictionary meaning of a word from a language and displays\nit in the target language.\n\nStability: [unstable](https://www.mediawiki.org/wiki/API_versioning#Unstable)\n",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/get_transform_word_from__from_lang__to__to_lang___word___provider_.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        }
+    }
+}

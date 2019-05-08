@@ -1,0 +1,25 @@
+{
+    "type": "object",
+    "properties": {
+        "project": {
+            "required": true,
+            "type": "string"
+        },
+        "granularity": {
+            "required": true,
+            "type": "string",
+            "enum": [
+                "daily",
+                "monthly"
+            ]
+        },
+        "start": {
+            "required": true,
+            "type": "string"
+        },
+        "end": {
+            "required": true,
+            "type": "string"
+        }
+    }
+}
